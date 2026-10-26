@@ -150,3 +150,90 @@ Run these from the project folder:
 - **Composition:** `App` builds a page by placing `StudentCard` components inside its returned markup.
 - **Props:** values such as `name="shivam"` and `email="abc@gmail.com"` are passed from `App` to `StudentCard`.
 - **Next.js and TypeScript:** the learning unit introduces these tools, but this repository does not use them. It is a Vite project written in `.jsx` JavaScript files.
+  !!Important LU 4.10 Notes!!
+1. What Are Props?
+Definition: Props (short for properties) are arguments passed into a React component. They allow a single component template to display different data across different instances (e.g., displaying "Ada" in one profile card and "Grace" in another).
+
+Syntax: Props are passed as HTML-like attributes on the JSX tag:
+
+TypeScript
+<ProfileCard name="Ada" />
+Receiving & Destructuring: React combines all attributes into a single object. Component functions usually unpack these using destructuring right in the parameter list:
+
+TypeScript
+function ProfileCard({ name }) {
+  return <h2>{name}</h2>;
+}
+One-Way Data Flow: Data flows strictly downward from parent components to child components. Props are read-only; child components must never mutate or overwrite the props they receive.
+
+2. Typing Props with TypeScript
+Without type definitions, React cannot stop you from passing wrong data types, forgetting required fields, or misspelling property names. TypeScript solves this by defining the expected shape of the props object before runtime.
+
+Defining a Type Alias: Create a type defining the keys and their respective data types:
+
+TypeScript
+type Props = {
+  name: string;
+  age: number;
+};
+
+function Person({ name, age }: Props) {
+  return <p>{name} is {age}</p>;
+}
+Benefits:
+
+Prevents passing incorrect types (e.g., a string instead of a number).
+
+Warns about missing required props.
+
+Catches typos in prop names instantly inside the editor with red underlines rather than at runtime.
+
+type vs. interface: Both type Props = { ... } and interface Props { ... } can be used to type props in React.
+
+3. Handling Different Data Types & Optional Props
+Passing Non-String Values:
+
+Strings can be passed with standard double quotes: title="Hello"
+
+Numbers, Booleans, Arrays, and Objects must be wrapped in curly braces {}:
+
+TypeScript
+<Card title="Hello" count={3} active={true} />
+Optional Props (?):
+
+Use a question mark ? in the type definition to mark a prop as optional.
+
+Provide a default fallback value using JavaScript default parameters during destructuring:
+
+TypeScript
+type Props = {
+  title: string;
+  subtitle?: string; // Optional prop
+};
+
+function Card({ title, subtitle = "No subtitle" }: Props) {
+  return (
+    <div>
+      <h3>{title}</h3>
+      <p>{subtitle}</p>
+    </div>
+  );
+}
+Core Summary Checklist
+Purpose: Props convert rigid, static components into dynamic, reusable templates.
+
+Passing: Attributes on component tags (name="Ada", age={36}).
+
+Typing: Annotate the destructured parameter list ({ name, age }: Props).
+
+Quotes vs. Braces: Plain quotes "" for strings; curly braces {} for numbers, booleans, and other JS expressions.
+
+Optional Fields: Append ? to optional keys and supply default parameter values inside the function declaration.
+
+If you'd like to explore any specific area further, let me know:
+
+Deeper dive into type vs. interface
+
+How to type complex props like functions, arrays, or objects
+
+Hands-on TypeScript coding exercises on React props
