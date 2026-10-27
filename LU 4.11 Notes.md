@@ -152,3 +152,12 @@ export default function UserProfile() {
 | Update a number | `setCount(count + 1);` | Asks React to re-render with the updated value. |
 | Update an object | `setUser({ ...user, name: "New Name" });` | Make a new object instead of changing the old one. |
 | Toggle a Boolean | `setIsOpen(!isOpen);` | Changes `true` to `false`, or `false` to `true`. |
+IMPORTANT QUESTIONS?
+1.What does userState return?
+Answer->In React, the useState hook returns an array with exactly two elements:
+
+The current state value: On the initial render, this is the initial state value you passed into useState(). During subsequent re-renders, it's the most recent state value after any updates.
+
+A state setter function: A function you call to update the state to a new value. Calling this function tells React to queue a re-render of the component with the new state.
+Why an array?
+Using array destructuring (const [state, setState] = ...) allows you to name the state variable and its setter function whatever you like, making it clean and intuitive to use multiple times in the same component.
